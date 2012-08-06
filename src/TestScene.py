@@ -45,11 +45,11 @@ class TestScene():
         
         self.tweener.update(dt)
             
-        if (InputWatcher.wasPressed(pygame.K_SPACE)):
+        #if (InputWatcher.wasPressed(pygame.K_SPACE)):
             #self.tweener.add_tween(self.ship,self.ship.position[1]=30,tweenTime=5.0,tweenType=ship.tweener.OUT_QUAD )    
-            self.tweener.add_tween(self.ship, magic_num =random.uniform(100,500), tween_time=1000.0, tween_type=self.tweener.OUT_ELASTIC)
+           # self.tweener.add_tween(self.ship, magic_num =random.uniform(100,500), tween_time=1000.0, tween_type=self.tweener.OUT_ELASTIC)
             
-        if InputWatcher.isDown(pygame.K_a):
+        if InputWatcher.wasPressed(pygame.K_a):
             entity = Entity.Circle(self.ship.getWorldDropPosition())
             entity.applyImpulse(self.ship.getWorldVelocity())
             
@@ -60,9 +60,8 @@ class TestScene():
             
             ##TEST TEST
         #Draw the five item boxes
-        for i in range(5):
-            CoreApp.screen.blit(self.face_image, (self.ship.magic_num + i * 50, 400))
         
+        print len(CoreApp.world.bodies)
         for body in CoreApp.world:
             self.fart_image = pygame.transform.rotate(self.face_image, math.degrees(body.angle))
             pos = CoreApp.worldToPixels(body.worldCenter)
@@ -76,7 +75,7 @@ class TestScene():
         
         text = self.poop_font.render(str(len(CoreApp.world.bodies)), True, pygame.Color(255,255,255))
         
-        self.poop_loc = text.get_rect(centerx=CoreApp.screen.get_width()/2)
+        self.poop_loc = text.get_rect(centerx=CoreApp.screen.get_width() - 80)
         CoreApp.screen.blit(text, self.poop_loc)
         
         pass
