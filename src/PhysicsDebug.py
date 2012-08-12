@@ -1,7 +1,7 @@
-
 from Box2D import b2_staticBody, b2_dynamicBody, b2_kinematicBody, b2Shape
 import pygame
 import CoreApp
+import InputWatcher
 
 bodyColors = {
     b2_staticBody    : (255,255,255,255),
@@ -12,8 +12,16 @@ bodyColors = {
 class DebugRenderer():
     def __init__(self):
         self.world = CoreApp.world
+        self.debugFlag = True
+    
+    def update(self):
+        if InputWatcher.wasPressed(pygame.K_BACKSPACE):
+            self.debugFlag = not self.debugFlag
 
     def draw(self):
+        if self.debugFlag:
+            return
+        
         for body in self.world.bodies:
             
             # Draw every body in the world

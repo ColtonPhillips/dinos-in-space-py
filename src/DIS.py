@@ -3,19 +3,17 @@
 # IS... 
 # DINOSAURS IN SPACE!!!
 
-# THE BIG TODO!!!
-# TODO: We need a class responsible for rendering the objects basically
-#         This could be AnimationEngine or something similar
 import CoreApp 
 import DinoScene
 import pygame
+import InputWatcher
 from pygame.locals import *
 
 FIRST_SCENE = DinoScene
 
+# HACK: First timestamp is a zero. is this a big deo la mon? - CP
 def gameLoop():
-    # TODO: This should be more generic and easier to switch "FirstScene" 
-    #        perhaps a SceneManager. for now, we'll use TestScene - CP
+
     dinoScene=FIRST_SCENE.DinoScene()
     
     # Game loop
@@ -25,11 +23,16 @@ def gameLoop():
         previousTime = currentTime
         currentTime = pygame.time.get_ticks()
         deltaTime = currentTime - previousTime
-        
+          
         # Reset the screen
         CoreApp.screen.fill((0,0,0,0))
         
-        # Step the world    - times by 0.001 to convert to seconds
+        # HACK: If you drag screen in Windows, it locks main thread
+        # This averts the bug, but may introduce new bugs. Look into this - CP
+        if (deltaTime > 100):
+            deltaTime = 0
+        
+        # Step the world - times by 0.001 to convert to seconds
         CoreApp.world.Step((deltaTime) * 0.001, CoreApp.VELOCITY_ITERATION, CoreApp.POSITION_ITERATION)
 
         dinoScene.update(deltaTime)
@@ -47,6 +50,9 @@ def gameLoop():
         for event in pygame.event.get():
             if event.type == QUIT:
                 IS_PLAYING = False
+                
+        # TEMP: Leave scene if press ESC - CP
+        IS_PLAYING = not InputWatcher.isDown(pygame.K_ESCAPE)
         
 if __name__ == "__main__":
     gameLoop()

@@ -1,5 +1,3 @@
-# TODO: Maybe unit test these fuckers below - CP
-
 import pygame
 
 key_state        = pygame.key.get_pressed()

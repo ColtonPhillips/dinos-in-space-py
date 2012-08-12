@@ -1,3 +1,5 @@
+#TODO: This is just some code i copied. you actually have to do the thing. So yeah. do it. - CP
+
 # TODO: Mystically, with great precision and beauty, abstract the loading 
 # and use of images.
 

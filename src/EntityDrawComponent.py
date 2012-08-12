@@ -1,3 +1,5 @@
+# TODO: This is pretty fucking chincy right now. - CP
+
 import CoreApp
 import pygame
 import math
